@@ -6,6 +6,7 @@ namespace _1670_ApplicationDevelopment_Lab.Data
     public class ApplicationDBContext : DbContext
     {
         public DbSet<Category> Categories { get; set; }
+        public DbSet<TEST> TEST { get; set; }
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
             
