@@ -1,0 +1,55 @@
+﻿@using _1670_ApplicationDevelopment_Lab.Models.ViewModels;
+@model BookVM
+<h1> @(Model.Book.Id == 0? "Create":"Edit") a Book</h1>
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Book.Id" hidden />
+    <input asp-for="Book.ImageUrl" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row mb-3">
+            <label asp-for="Book.Title"></label>
+            <input asp-for="Book.Title">
+            <span asp-validation-for="Book.Title" class="text-danger"></span>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="Book.Description"></label>
+            <input asp-for="Book.Description">
+            <span asp-validation-for="Book.Description" class="text-danger"></span>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="Book.Author"></label>
+            <input asp-for="Book.Author">
+            <span asp-validation-for="Book.Author" class="text-danger"></span>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="Book.Price"></label>
+            <input asp-for="Book.Price">
+            <span asp-validation-for="Book.Price" class="text-danger"></span>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="Book.CategoryId"></label>
+            <select asp-for="Book.CategoryId" asp-items="@Model.MyCategories" class="form-select"></select>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="Book.ImageUrl"></label>
+            <input type="file" name="file" class="form-control">
+            
+        </div>
+        <div class="btn group" role="group">
+            @if (Model.Book.Id == 0)
+            {
+                <button type="submit" class="btn btn-primary">Create</button>
+            } else
+            {
+                <button type="submit" class="btn btn-primary">Update</button>
+            }
+            <a asp-controller="Book" asp-action="Index" class="btn btn-primary"><i class="bi bi-trash"></i> Back to List</a>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

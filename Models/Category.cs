@@ -13,6 +13,7 @@ namespace _1670_ApplicationDevelopment_Lab.Models
         public string Name { get; set; }
         public string Description { get; set; }
         [DisplayName("Display Order")]
+        [Range(1, 100)]
         public int DisplayOrder { get; set; }
         
         public Category() { }

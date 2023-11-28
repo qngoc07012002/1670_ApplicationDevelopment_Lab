@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _1670_ApplicationDevelopment_Lab.Data;
 
@@ -10,9 +11,11 @@ using _1670_ApplicationDevelopment_Lab.Data;
 namespace _1670_ApplicationDevelopment_Lab.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231125035311_seedingBooksTable")]
+    partial class seedingBooksTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +43,6 @@ namespace _1670_ApplicationDevelopment_Lab.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -65,33 +65,6 @@ namespace _1670_ApplicationDevelopment_Lab.Migrations
                             Description = "Basic Start",
                             Price = 10.5,
                             Title = "Programming"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Author = "Nguyen Quang Ngoc",
-                            CategoryId = 2,
-                            Description = "Appppp DEVVVV",
-                            Price = 20.0,
-                            Title = "App Dev"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Author = "Ngoc Nguyen Quang",
-                            CategoryId = 3,
-                            Description = "Basic Python",
-                            Price = 40.0,
-                            Title = "Python"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Author = "Quang Ngoc",
-                            CategoryId = 4,
-                            Description = "Start C#",
-                            Price = 30.0,
-                            Title = "C#"
                         });
                 });
 
@@ -154,6 +127,23 @@ namespace _1670_ApplicationDevelopment_Lab.Migrations
                             DisplayOrder = 2,
                             Name = "History"
                         });
+                });
+
+            modelBuilder.Entity("_1670_ApplicationDevelopment_Lab.Models.TEST", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TEST");
                 });
 
             modelBuilder.Entity("_1670_ApplicationDevelopment_Lab.Models.Book", b =>

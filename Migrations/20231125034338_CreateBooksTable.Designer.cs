@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _1670_ApplicationDevelopment_Lab.Data;
 
@@ -10,9 +11,11 @@ using _1670_ApplicationDevelopment_Lab.Data;
 namespace _1670_ApplicationDevelopment_Lab.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231125034338_CreateBooksTable")]
+    partial class CreateBooksTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +43,6 @@ namespace _1670_ApplicationDevelopment_Lab.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -55,44 +55,6 @@ namespace _1670_ApplicationDevelopment_Lab.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Author = "Microsoft",
-                            CategoryId = 1,
-                            Description = "Basic Start",
-                            Price = 10.5,
-                            Title = "Programming"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Author = "Nguyen Quang Ngoc",
-                            CategoryId = 2,
-                            Description = "Appppp DEVVVV",
-                            Price = 20.0,
-                            Title = "App Dev"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Author = "Ngoc Nguyen Quang",
-                            CategoryId = 3,
-                            Description = "Basic Python",
-                            Price = 40.0,
-                            Title = "Python"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Author = "Quang Ngoc",
-                            CategoryId = 4,
-                            Description = "Start C#",
-                            Price = 30.0,
-                            Title = "C#"
-                        });
                 });
 
             modelBuilder.Entity("_1670_ApplicationDevelopment_Lab.Models.Category", b =>
@@ -117,43 +79,23 @@ namespace _1670_ApplicationDevelopment_Lab.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Tinh Cam",
-                            DisplayOrder = 2,
-                            Name = "ABC"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Hanh Dong",
-                            DisplayOrder = 2,
-                            Name = "Action"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Kinh Di",
-                            DisplayOrder = 2,
-                            Name = "Horrnor"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Khoa Hoc",
-                            DisplayOrder = 2,
-                            Name = "Science"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Lich Su",
-                            DisplayOrder = 2,
-                            Name = "History"
-                        });
+            modelBuilder.Entity("_1670_ApplicationDevelopment_Lab.Models.TEST", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TEST");
                 });
 
             modelBuilder.Entity("_1670_ApplicationDevelopment_Lab.Models.Book", b =>

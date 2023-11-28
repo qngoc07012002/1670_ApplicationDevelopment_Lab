@@ -1,17 +1,12 @@
 ﻿@model List<Category>
-@if(TempData["success"]!=null)
-{
-    <script>
-       alert("Create Successfully");
-    </script>
-}
+<partial name="_Notification" />
 
 <div class="row pt-4 pb-4">
     <div class="col-9">
         <h1>List Of Category</h1>
     </div>
     <div class="col-3"> 
-        <a asp-controller="Category" asp-action="Create" class="btn">Create new Category</a>
+        <a asp-controller="Category" asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle-fill"></i> Create new Category</a>
     </div>
 </div>
 <table class="table table-bordered"> 
@@ -23,11 +18,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var category in Model) {
+        @foreach(var category in Model.OrderByDescending(u=>u.DisplayOrder)) {
             <tr>
                 <td>@category.Name</td>
                 <td>@category.Description</td>
                 <td>@category.DisplayOrder</td>
+                <td>
+                    <div class="btn group" role="group">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary"> <i class="bi bi-pencil-square"></i> Edit</a>
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-primary"><i class="bi bi-trash"></i> Delete</a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
