@@ -60,11 +60,21 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string bookPath = Path.Combine(wwwRoothPath, "img");
+                    if (!String.IsNullOrEmpty(bookVM.Book.ImageUrl))
+                    {
+                        // Delete Old Image
+                        var oldImagePath = Path.Combine(wwwRoothPath, bookVM.Book.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+
+                    }
                     using (var fileStream = new FileStream(Path.Combine(bookPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
-
+                    bookVM.Book.ImageUrl = @"\img\" + fileName;
                 }
                 if (bookVM.Book.Id == 0)
                 {
