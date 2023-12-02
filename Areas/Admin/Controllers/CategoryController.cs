@@ -1,11 +1,13 @@
 ﻿using _1670_ApplicationDevelopment_Lab.Data;
 using _1670_ApplicationDevelopment_Lab.Models;
 using _1670_ApplicationDevelopment_Lab.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _1670_ApplicationDevelopment_Lab.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         // private readonly ApplicationDBContext _dbContext;

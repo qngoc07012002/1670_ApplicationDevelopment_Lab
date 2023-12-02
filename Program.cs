@@ -3,6 +3,8 @@ using _1670_ApplicationDevelopment_Lab.Repository;
 using _1670_ApplicationDevelopment_Lab.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using _1670_ApplicationDevelopment_Lab.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,15 +12,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultCOnnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDBContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders();
 //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 //builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWorks>();
-
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.AddRazorPages();
+
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.LoginPath = $"/Identity/Account/Login";
+    option.LogoutPath = $"/Identity/Account/Logout";
+    option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

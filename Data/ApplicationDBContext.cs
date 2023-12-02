@@ -8,7 +8,8 @@ namespace _1670_ApplicationDevelopment_Lab.Data
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+    public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
 
         }

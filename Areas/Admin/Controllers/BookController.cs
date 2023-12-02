@@ -2,6 +2,7 @@
 using _1670_ApplicationDevelopment_Lab.Models;
 using _1670_ApplicationDevelopment_Lab.Models.ViewModels;
 using _1670_ApplicationDevelopment_Lab.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -9,6 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace _1670_ApplicationDevelopment_Lab.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class BookController : Controller
     {
         
