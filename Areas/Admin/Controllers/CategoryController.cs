@@ -3,8 +3,9 @@ using _1670_ApplicationDevelopment_Lab.Models;
 using _1670_ApplicationDevelopment_Lab.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace _1670_ApplicationDevelopment_Lab.Controllers
+namespace _1670_ApplicationDevelopment_Lab.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         // private readonly ApplicationDBContext _dbContext;
@@ -12,6 +13,7 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
         // private readonly ICategoryRepository categoryRepository;
 
         private readonly IUnitOfWork _unitOfWork;
+
         public CategoryController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -56,14 +58,14 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
             if (id == null || id == 0)
             {
                 return NotFound();
-            }   
+            }
             Category category = _unitOfWork.CategoryRepository.Get(c => c.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
             return View(category);
-            
+
         }
 
         [HttpPost]
@@ -99,8 +101,8 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
         {
             _unitOfWork.CategoryRepository.Remove(category);
             _unitOfWork.Save();
-           TempData["success"] = "Category deleted succesfully";
-           return RedirectToAction("Index");
+            TempData["success"] = "Category deleted succesfully";
+            return RedirectToAction("Index");
         }
     }
 }

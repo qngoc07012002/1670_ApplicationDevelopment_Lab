@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace _1670_ApplicationDevelopment_Lab.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

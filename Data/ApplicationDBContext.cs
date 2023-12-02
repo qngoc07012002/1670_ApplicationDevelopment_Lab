@@ -1,19 +1,21 @@
 ﻿using _1670_ApplicationDevelopment_Lab.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace _1670_ApplicationDevelopment_Lab.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "ABC", DisplayOrder = 2, Description = "Tinh Cam" },
                 new Category { Id = 2, Name = "Action", DisplayOrder = 2, Description = "Hanh Dong" },

@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace _1670_ApplicationDevelopment_Lab.Controllers
+namespace _1670_ApplicationDevelopment_Lab.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class BookController : Controller
     {
+        
         //private readonly ApplicationDBContext _dbContext;
         // private readonly IBookRepository bookRepository;
 
@@ -29,7 +31,8 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
 
         public IActionResult CreateUpdate(int? id)
         {
-            BookVM bookVM = new BookVM() {
+            BookVM bookVM = new BookVM()
+            {
                 MyCategories = _unitOfWork.CategoryRepository.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
@@ -41,13 +44,14 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
             {
                 //Create new Book
                 return View(bookVM);
-            } else
+            }
+            else
             {
                 // Update a Book
                 bookVM.Book = _unitOfWork.BookRepository.Get(b => b.Id == id);
                 return View(bookVM);
             }
-            
+
         }
 
         [HttpPost]
@@ -60,7 +64,7 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string bookPath = Path.Combine(wwwRoothPath, "img");
-                    if (!String.IsNullOrEmpty(bookVM.Book.ImageUrl))
+                    if (!string.IsNullOrEmpty(bookVM.Book.ImageUrl))
                     {
                         // Delete Old Image
                         var oldImagePath = Path.Combine(wwwRoothPath, bookVM.Book.ImageUrl.TrimStart('\\'));
@@ -80,14 +84,16 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
                 {
                     _unitOfWork.BookRepository.Add(bookVM.Book);
                     TempData["success"] = "Book created succesfully";
-                } else
+                }
+                else
                 {
                     _unitOfWork.BookRepository.Update(bookVM.Book);
                     TempData["success"] = "Book updated succesfully";
                 }
                 _unitOfWork.Save();
-                return RedirectToAction("Index"); 
-            } else
+                return RedirectToAction("Index");
+            }
+            else
             {
                 BookVM bookVMNew = new BookVM()
                 {
@@ -101,7 +107,7 @@ namespace _1670_ApplicationDevelopment_Lab.Controllers
                 return View();
             }
 
-        } 
+        }
 
         public IActionResult Delete(int? id)
         {
